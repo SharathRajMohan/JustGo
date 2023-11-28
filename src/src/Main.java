@@ -3,5 +3,6 @@ public class Main {
 
         System.out.println("JustGo");
         System.out.println("Ride share application");
+
     }
 }
