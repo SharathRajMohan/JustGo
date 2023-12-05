@@ -12,11 +12,5 @@ public class Trip {
     private TripStatus tripStatus = TripStatus.SCHEDULED;
 
     //Methods
-    public TripStatus getTripStatus() {
-        return tripStatus;
-    }
-
-    public void setTripStatus(TripStatus tripStatus) {
-        this.tripStatus = tripStatus;
-    }
+    
 }
