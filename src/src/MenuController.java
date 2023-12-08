@@ -7,12 +7,14 @@ public class MenuController {
 
 
     static int MainMenu(Scanner input){
-        System.out.println("Welcome!\nAre you a rider or a driver?");
+        System.out.println("------------------------------------------------------------------------");
+        System.out.println("MAIN MENU!\nAre you a rider or a driver?");
         System.out.println("1: Rider");
         System.out.println("2: Driver");
         System.out.println("\nNew to the platform? Let's get you registered..");
         System.out.println("3: Register as a Driver");
         System.out.println("4: Register as a Rider");
+        System.out.println("5: Exit");
         return InputValidation.ValidNumericalInput(input, "Enter a valid choice: ");
     }
 
@@ -27,7 +29,7 @@ public class MenuController {
             DriverManager dminstance = DriverManager.getInstance();
             dminstance.registerDriver(new_driver);
             System.out.println("Welcome to JustGo, "+new_driver.name);
-            System.out.println("UserID :, "+new_driver.user_id);
+            System.out.println("UserID : "+new_driver.user_id);
             System.out.println("Joined on :"+new_driver.joinedOn);
 
         }else{
