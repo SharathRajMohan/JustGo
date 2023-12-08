@@ -12,5 +12,6 @@ public class Trip {
     private TripStatus tripStatus = TripStatus.SCHEDULED;
 
     //Methods
+
     
 }
