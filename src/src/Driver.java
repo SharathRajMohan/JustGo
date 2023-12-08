@@ -1,5 +1,3 @@
-import java.time.LocalDateTime;
-
 public class Driver extends User {
 
     // Properties
@@ -7,11 +5,13 @@ public class Driver extends User {
     private boolean isAcceptingRider;
 
     //Methods
-    public Driver(String name, String email, String contact_no, String driverId, double driverRating) {
+    public Driver(String name, String email, String contact_no) {
         super(name, email, contact_no,"D");
-        this.driverRating = driverRating;
+        this.driverRating = 0.0;
         this.isAcceptingRider = true;
     }
+
+
     // Getters & Setters
     public double getDriverRating() {
         return driverRating;
