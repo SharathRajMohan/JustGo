@@ -42,28 +42,56 @@ public class MenuController {
         }
     }
     // Rider Userflow
-    public static int RiderMenu(){
-            System.out.println("------------------------------------------------------------------------");
-            System.out.println("RIDER MENU\n");
-            System.out.println("1: Request a ride.");
-            System.out.println("2: Update your ride.");
-            System.out.println("3: Get your current ride details.");
-            System.out.println("4: Get ride fare receipt.");
-            System.out.println("5: Logout");
-            return InputValidation.ValidNumericalInput("Enter a valid choice: ");
+    public static void RiderMenu(){
+            int menuChoice;
+            boolean exit = false;
+            while (!exit) {
+                System.out.println("------------------------------------------------------------------------");
+                System.out.println("RIDER MENU\n");
+                System.out.println("1: Request a trip.");
+                System.out.println("2: Update your trip.");
+                System.out.println("3: Get your current trip details.");
+                System.out.println("4: Get ride fare receipt.");
+                System.out.println("5: Logout");
+                menuChoice = InputValidation.ValidNumericalInput("Enter a valid choice: ");
+            }
     }
 
     // Driver Userflow
-    public static int DriverMenu(){
+    public static void DriverMenu(Driver loggedDriver){
         int menuChoice;
-        System.out.println("------------------------------------------------------------------------");
-        System.out.println("DRIVER MENU\n");
-        System.out.println("1: Get your current ride details.");
-        System.out.println("2: Complete ride.");
-        System.out.println("3: ");
-        System.out.println("4: Switch Availability.");
-        System.out.println("5: Logout");
-        return InputValidation.ValidNumericalInput("Enter a valid choice: ");
+        boolean exit = false;
+        while (!exit){
+            System.out.println("------------------------------------------------------------------------");
+            System.out.println("DRIVER MENU\n");
+            System.out.println("1: Get your current trip details.");
+            System.out.println("2: Complete trip.");
+            System.out.println("3: Withdraw trip.");
+            System.out.println("4: Switch Availability.");
+            System.out.println("5: Logout");
+            menuChoice = InputValidation.ValidNumericalInput("Enter a valid choice: ");
+            switch (menuChoice) {
+                case 1:
+                    System.out.println("Current Trip");
+                    break;
+                case 2:
+                    System.out.println("Are you sure you want to complete the trip?");
+                    break;
+                case 3:
+                    System.out.println("Are you sure you want to withdraw the trip?");
+                    break;
+                case 4:
+                    System.out.println("Do you want to change your current availability status?");
+                    break;
+                case 5:
+                    System.out.println("Logging you out..");
+                    exit = true;
+                    break;
+                default:
+                    System.out.println("You seem to have entered an invalid choice. Let's try that again.");
+                    break;
+            }
+        }
     }
 
 
