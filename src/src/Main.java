@@ -2,8 +2,6 @@ import ApplicationExceptions.DriverNotFound;
 import ApplicationExceptions.RiderNotFound;
 import Utils.InputValidation;
 
-import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) throws RiderNotFound {
         // Application Initialization
@@ -42,8 +40,8 @@ public class Main {
                     user_id = InputValidation.ValidStringInput("Enter Driver UserID.");
                     if(Auth.isAuth(false,user_id)){
                         Driver driver = dm.getDriverByUsername(user_id);
-                        System.out.println("Hi, "+ driver.name+"!");
-                        MenuController.DriverMenu();
+                        System.out.println("Hi, "+ driver.name+"!\n");
+                        MenuController.DriverMenu(driver);
                     } else {
                         try {
                             throw new DriverNotFound();
@@ -63,6 +61,10 @@ public class Main {
                 case 5:
                     System.out.println("\nThank you for using the application.");
                     exit = true;
+                    break;
+                default:
+                    System.out.println("\n You seem to have entered an invalid choice. Let's try that again.");
+                    break;
             }
         }
     }

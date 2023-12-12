@@ -25,9 +25,9 @@ public class User {
     public static String createID(String Type)
     {
         if(Objects.equals(Type, "D")) {
-            return "D0"+String.valueOf(idCounterD.getAndIncrement());
+            return "D0"+String.valueOf(idCounterD.incrementAndGet());
         }else{
-            return "R0"+String.valueOf(idCounterR.getAndIncrement());
+            return "R0"+String.valueOf(idCounterR.incrementAndGet());
         }
     }
 }
