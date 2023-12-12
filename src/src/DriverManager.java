@@ -24,6 +24,11 @@ public class DriverManager{
          tempDriver.setAcceptingRider(Status);
     }
 
+    // Check if a driver is present in the ledger.
+    public boolean checkDriver(String user_id){
+        return this.DriverLedger.containsKey(user_id);
+    }
+
     // From the ledger returns the list of available drivers.
     public List<Driver> getallAvailableDrivers(){
         return this.DriverLedger.values().stream().filter(Driver::isAcceptingRider).collect(Collectors.toList());
@@ -35,5 +40,9 @@ public class DriverManager{
             driverManagerInstance = new DriverManager();
         }
         return driverManagerInstance;
+    }
+
+    public Driver getDriverByUsername(String userId) {
+        return this.DriverLedger.get(userId);
     }
 }

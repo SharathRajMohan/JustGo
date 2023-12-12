@@ -17,10 +17,20 @@ public class RiderManager {
         RiderLedger.put(rider.user_id,rider);
     }
 
+    // Check if rider exists in the ledger.
+    public boolean checkRider(String user_id){
+        return RiderLedger.containsKey(user_id);
+    }
+
     // Get all riders requesting for a ride.
     // From the ledger returns the list of available riders.
     public List<Rider> getallRequestingRiders(){
         return this.RiderLedger.values().stream().filter(Rider::isRequesting).collect(Collectors.toList());
+    }
+
+    // Return requested rider object based on userId
+    public Rider getRiderByUsername(String user_id){
+        return this.RiderLedger.get(user_id);
     }
 
     // Make the class singleton
