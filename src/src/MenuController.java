@@ -1,10 +1,7 @@
 import Utils.InputValidation;
 
-import java.util.Scanner;
-
 // The static class that has methods for displaying menu and validating input.
 public class MenuController {
-
     static int MainMenu(){
         System.out.println("------------------------------------------------------------------------");
         System.out.println("MAIN MENU\nAre you a rider or a driver?");
@@ -54,6 +51,27 @@ public class MenuController {
                 System.out.println("4: Get ride fare receipt.");
                 System.out.println("5: Logout");
                 menuChoice = InputValidation.ValidNumericalInput("Enter a valid choice: ");
+                switch (menuChoice) {
+                    case 1:
+                        System.out.println("Current Trip");
+                        break;
+                    case 2:
+                        System.out.println("Are you sure you want to complete the trip?");
+                        break;
+                    case 3:
+                        System.out.println("Are you sure you want to withdraw the trip?");
+                        break;
+                    case 4:
+                        System.out.println("Do you want to change your current availability status?");
+                        break;
+                    case 5:
+                        System.out.println("Logging you out..");
+                        exit = true;
+                        break;
+                    default:
+                        System.out.println("You seem to have entered an invalid choice. Let's try that again.");
+                        break;
+                }
             }
     }
 

@@ -2,5 +2,5 @@
 public interface PricingStrategy {
     double AMT_PER_KM = 20;
     double SEAT_PRICE = 5;
-    double calculateFare(int origin, int destination, int seats);
+    double calculateFare(double origin, double destination, int seats);
 }
