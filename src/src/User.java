@@ -2,7 +2,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class User {
+public abstract class User {
     // Properties
     private static AtomicLong idCounterD = new AtomicLong(0L); //Total driver objects instantiated.
     private static AtomicLong idCounterR = new AtomicLong(0L); //Total user objects instantiated.
