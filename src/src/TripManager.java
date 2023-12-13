@@ -64,7 +64,7 @@ public class TripManager {
     }
 
     // Update trip
-    public void UpdateTrip(final String tripId, final int origin, final int destination, final int seats) throws InvalidTripParamException, DriverNotFound, TripNotFoundException, TripStatusException {
+    public void UpdateTrip(final String tripId, final int origin, final int destination, final int seats) throws InvalidTripParamException, TripNotFoundException, TripStatusException {
         // Throw exception if origin is greater than destination
         if (origin >= destination) {
             throw new InvalidTripParamException("Origin should always be greater than exception, try with valid request.");
