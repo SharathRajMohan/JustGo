@@ -39,7 +39,7 @@ public class MenuController {
         }
     }
     // Rider Userflow
-    public static void RiderMenu(){
+    public static void RiderMenu(Rider rider){
             int menuChoice;
             boolean exit = false;
             while (!exit) {
@@ -53,16 +53,20 @@ public class MenuController {
                 menuChoice = InputValidation.ValidNumericalInput("Enter a valid choice: ");
                 switch (menuChoice) {
                     case 1:
-                        System.out.println("Current Trip");
+                        System.out.println("Create Trip.");
+                        RiderController.CreateTrip(rider);
                         break;
                     case 2:
-                        System.out.println("Are you sure you want to complete the trip?");
+                        System.out.println("Update current trip.");
+                        RiderController.UpdateTrip(rider);
                         break;
                     case 3:
-                        System.out.println("Are you sure you want to withdraw the trip?");
+                        System.out.println("Current trip details.");
+                        RiderController.DisplayTrip(rider);
                         break;
                     case 4:
-                        System.out.println("Do you want to change your current availability status?");
+                        System.out.println("Get current trip fare.");
+                        System.out.println("FARE: "+rider.getCurrentTrip().getFare());
                         break;
                     case 5:
                         System.out.println("Logging you out..");

@@ -10,6 +10,7 @@ public class Driver extends User {
         super(name, email, contact_no,"D");
         this.driverRating = 0.0;
         this.isAcceptingRider = true;
+        this.CurrentTrip = null;
     }
 
 

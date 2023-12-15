@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class Trip {
@@ -11,6 +12,7 @@ public class Trip {
     private double destination;
     private double fare;
     private TripStatus tripStatus = TripStatus.SCHEDULED;
+    private LocalDateTime TripCreationTime;
 
     //Methods
     public Trip(Driver driver, int seats, Rider rider, double origin, double destination, double fare) {
@@ -22,6 +24,7 @@ public class Trip {
         this.destination = destination;
         this.fare = fare;
         this.tripStatus = TripStatus.SCHEDULED;
+        this.TripCreationTime = LocalDateTime.now();
     }
 
     // Methods for random ID generation
@@ -74,5 +77,31 @@ public class Trip {
         this.fare = fare;
     }
 
+    public LocalDateTime getTripCreationTime() {
+        return TripCreationTime;
+    }
 
+    public double getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(double origin) {
+        this.origin = origin;
+    }
+
+    public double getDestination() {
+        return destination;
+    }
+
+    public void setDestination(double destination) {
+        this.destination = destination;
+    }
+
+    public double getFare() {
+        return fare;
+    }
+
+    public void setFare(double fare) {
+        this.fare = fare;
+    }
 }
