@@ -39,7 +39,7 @@ public class TripManager {
     public void CreateTrip(final Rider rider, final double origin, final double destination, final int seats) throws InvalidTripParamException, DriverNotFound {
         // Throw exception if origin is greater than destination
         if (origin >= destination) {
-            throw new InvalidTripParamException("Origin should always be greater than exception, try with valid request.");
+            throw new InvalidTripParamException("Destination should always be greater than origin, try with valid request.");
         }
 
         // Assign a driver for this ride
@@ -58,13 +58,16 @@ public class TripManager {
         // Register trip to ledger
         TripLedger.put(trip.getTripId(),trip);
         assignedDriver.get().setCurrentTrip(trip);
+        rider.setCurrentTrip(trip);
+        System.out.println("Success: A trip has been generated: ");
         System.out.println("Trip ID: "+trip.getTripId());
         System.out.println("Rider : "+trip.getRider().name);
         System.out.println("Driver : "+trip.getDriver().name);
+        System.out.println("Status : "+trip.getTripStatus());
     }
 
     // Update trip
-    public void UpdateTrip(final String tripId, final int origin, final int destination, final int seats) throws InvalidTripParamException, TripNotFoundException, TripStatusException {
+    public void UpdateTrip(final String tripId, final double origin, final double destination, final int seats) throws InvalidTripParamException, TripNotFoundException, TripStatusException {
         // Throw exception if origin is greater than destination
         if (origin >= destination) {
             throw new InvalidTripParamException("Origin should always be greater than exception, try with valid request.");

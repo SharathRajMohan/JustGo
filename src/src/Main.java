@@ -25,14 +25,13 @@ public class Main {
                     if(Auth.isAuth(true,user_id)){
                         Rider rider = rm.getRiderByUsername(user_id);
                         System.out.println("Hi, "+ rider.name+"!");
-                        MenuController.RiderMenu();
-                    }else {
+                        MenuController.RiderMenu(rider);
+                    } else {
                         try {
                             throw new RiderNotFound();
                         } catch (RiderNotFound e) {
                             System.out.println(e.getMessage());
                         }
-
                     }
                     break;
                 case 2:
