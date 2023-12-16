@@ -2,6 +2,7 @@ public class Rider extends User {
     // Properties
     private boolean isRequesting;
     private Trip CurrentTrip;
+
     //Methods
     public Rider(String name, String email, String contact_no) {
         super(name, email, contact_no,"R");

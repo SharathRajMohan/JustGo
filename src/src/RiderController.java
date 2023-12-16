@@ -4,6 +4,8 @@ import ApplicationExceptions.TripNotFoundException;
 import ApplicationExceptions.TripStatusException;
 import Utils.InputValidation;
 
+import java.util.List;
+
 public class RiderController {
     // Method to create trip using rider input.
     static void CreateTrip(Rider rider) {
@@ -53,13 +55,25 @@ public class RiderController {
         if(rider.getCurrentTrip() != null){
             Trip currTrip = rider.getCurrentTrip();
             System.out.println("Current Trip Details\n");
-            System.out.println("||TRIPID||TRIPCREATIONTIME||ORIGIN||DESTINATION||DRIVER||DRIVER RATING||FARE||STATUS||");
+            System.out.println("||TRIPID||TRIPCREATIONTIME||ORIGIN||DESTINATION||SEATS||DRIVER||DRIVER RATING||FARE||STATUS||");
             System.out.println("||"+currTrip.getTripId()+"||"+currTrip.getTripCreationTime()+"||"+currTrip.getOrigin()
-            +"||"+ currTrip.getDestination()+"||"+currTrip.getDriver().name+"||"+currTrip.getDriver().getDriverRating()
+            +"||"+ currTrip.getDestination()+"||"+currTrip.getSeats()+"||"+currTrip.getDriver().name+"||"+currTrip.getDriver().getDriverRating()
             +"||"+currTrip.getFare()+"||"+currTrip.getTripStatus()+"||");
         } else{
             System.out.println("No ongoing trips.");
         }
     }
-
+    // Display Fare and get trip rating.
+    static void RateandFare(Rider rider, TripManager tm){
+        // Get last completed trip details.
+        if(rider.getCurrentTrip().getTripStatus() == TripStatus.COMPLETED){
+            double rating = InputValidation.ValidNumericalInput("Please rate your trip driver out of 5");
+            rider.getCurrentTrip().getDriver().setDriverRating(rating);
+            DisplayTrip(rider);
+            System.out.println("\nThe total fare for the ride is: "+rider.getCurrentTrip().getFare());
+            rider.setCurrentTrip(null);
+        } else{
+            System.out.println("You do not have any completed trips.");
+        }
+    }
 }
