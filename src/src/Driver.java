@@ -22,7 +22,8 @@ public class Driver extends User {
     }
 
     public void setDriverRating(double driverRating) {
-        this.driverRating = (this.driverRating+driverRating);
+        System.out.println("Total driver rides = 1");
+        this.driverRating = ((this.driverRating+driverRating)/this.TotalRides);
     }
 
     public boolean isAcceptingRider() {
@@ -39,7 +40,14 @@ public class Driver extends User {
 
     public void setCurrentTrip(Trip currentTrip) {
         CurrentTrip = currentTrip;
-        this.TotalRides++;
+    }
+
+    public int getTotalRides() {
+        return TotalRides;
+    }
+
+    public void IncrementTotalRides() {
+        TotalRides++;
     }
 }
 

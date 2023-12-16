@@ -39,8 +39,8 @@ public class TripManager {
     // Create a trip
     public void CreateTrip(final Rider rider, final double origin, final double destination, final int seats) throws InvalidTripParamException, DriverNotFound {
         // Throw exception if origin is greater than destination
-        if (origin >= destination) {
-            throw new InvalidTripParamException("Destination should always be greater than origin, try with valid request.");
+        if (origin == destination) {
+            throw new InvalidTripParamException("Destination can not be same as the origin, try with valid request.");
         }
 
         // Assign a driver for this ride
@@ -71,8 +71,8 @@ public class TripManager {
     // Update trip
     public void UpdateTrip(final String tripId, final double origin, final double destination, final int seats) throws InvalidTripParamException, TripNotFoundException, TripStatusException {
         // Throw exception if origin is greater than destination
-        if (origin >= destination) {
-            throw new InvalidTripParamException("Origin should always be greater than exception, try with valid request.");
+        if (origin == destination) {
+            throw new InvalidTripParamException("Origin should not be same as destination, try with valid request.");
         }
 
         // Load the current trip from ledger.
@@ -111,13 +111,27 @@ public class TripManager {
     }
 
     // Complete the trip.
-    public void CompleteTrip(Driver driver){
+    public void StartTrip(Driver driver){
         if(driver.getCurrentTrip() == null){
             System.out.println("No ongoing trips.");
         }else{
+            if(InputValidation.ValidDecisionInput("Are you sure you want to start the trip "+driver.getCurrentTrip().getTripId())){
+                driver.getCurrentTrip().setTripStatus(TripStatus.INPROGRESS);
+                System.out.println("Trip "+driver.getCurrentTrip().getTripId() +" has started.");
+            }
+        }
+    }
+
+    // Complete the trip.
+    public void CompleteTrip(Driver driver){
+        if(driver.getCurrentTrip() == null){
+            System.out.println("No ongoing trips.");
+        } else if (driver.getCurrentTrip().getTripStatus()!=TripStatus.INPROGRESS) {
+            System.out.println("The trip has not started yet. Please start the trip.");
+        } else{
             if(InputValidation.ValidDecisionInput("Are you sure you want to end trip "+driver.getCurrentTrip().getTripId())){
                 driver.getCurrentTrip().setTripStatus(TripStatus.COMPLETED);
-                driver.getCurrentTrip().getRider().setCurrentTrip(null);
+                driver.IncrementTotalRides();
                 driver.setCurrentTrip(null);
                 driver.setAcceptingRider(true);
                 System.out.println("Trip completed.");
