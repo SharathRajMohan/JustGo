@@ -4,6 +4,7 @@ public class Driver extends User {
     private double driverRating;
     private boolean isAcceptingRider;
     private Trip CurrentTrip;
+    private int TotalRides;
 
     //Methods
     public Driver(String name, String email, String contact_no) {
@@ -11,6 +12,7 @@ public class Driver extends User {
         this.driverRating = 0.0;
         this.isAcceptingRider = true;
         this.CurrentTrip = null;
+        this.TotalRides = 0;
     }
 
 
@@ -20,7 +22,7 @@ public class Driver extends User {
     }
 
     public void setDriverRating(double driverRating) {
-        this.driverRating = driverRating;
+        this.driverRating = (this.driverRating+driverRating);
     }
 
     public boolean isAcceptingRider() {
@@ -37,6 +39,7 @@ public class Driver extends User {
 
     public void setCurrentTrip(Trip currentTrip) {
         CurrentTrip = currentTrip;
+        this.TotalRides++;
     }
 }
 

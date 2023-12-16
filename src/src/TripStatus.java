@@ -2,5 +2,7 @@ public enum TripStatus {
     SCHEDULED,
     INPROGRESS,
     COMPLETED,
+    CANCELEDBYRIDER,
+    CANCELLEDBYDRIVER,
     WITHDRAWN
 }

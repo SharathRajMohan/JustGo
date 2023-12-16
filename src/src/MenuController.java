@@ -39,7 +39,7 @@ public class MenuController {
         }
     }
     // Rider Userflow
-    public static void RiderMenu(Rider rider){
+    public static void RiderMenu(Rider rider, TripManager tm){
             int menuChoice;
             boolean exit = false;
             while (!exit) {
@@ -47,28 +47,43 @@ public class MenuController {
                 System.out.println("RIDER MENU\n");
                 System.out.println("1: Request a trip.");
                 System.out.println("2: Update your trip.");
-                System.out.println("3: Get your current trip details.");
-                System.out.println("4: Get ride fare receipt.");
-                System.out.println("5: Logout");
+                System.out.println("3: Cancel trip.");
+                System.out.println("4: Get your current trip details.");
+                System.out.println("5: Get ride fare receipt.");
+                System.out.println("6: Logout");
                 menuChoice = InputValidation.ValidNumericalInput("Enter a valid choice: ");
                 switch (menuChoice) {
                     case 1:
                         System.out.println("Create Trip.");
-                        RiderController.CreateTrip(rider);
+                        if(rider.getCurrentTrip()==null) {
+                            RiderController.CreateTrip(rider);
+                        } else {
+                            System.out.println("You already have an ongoing trip: "+rider.getCurrentTrip().getTripId());
+                        }
                         break;
                     case 2:
                         System.out.println("Update current trip.");
                         RiderController.UpdateTrip(rider);
                         break;
                     case 3:
+                        System.out.println("Cancel Trip");
+                        tm.CancelTrip(rider);
+                        break;
+                    case 4:
                         System.out.println("Current trip details.");
                         RiderController.DisplayTrip(rider);
                         break;
-                    case 4:
-                        System.out.println("Get current trip fare.");
-                        System.out.println("FARE: "+rider.getCurrentTrip().getFare());
-                        break;
                     case 5:
+                        System.out.println("Get current trip fare.");
+                        if(rider.getCurrentTrip()==null){
+                            System.out.println("No ongoing trips.");
+                        } else if (rider.getCurrentTrip().getTripStatus() == TripStatus.INPROGRESS){
+                            System.out.println("The trip is currently in progress.");
+                        } else {
+                            System.out.println("FARE: " + rider.getCurrentTrip().getFare());
+                        }
+                        break;
+                    case 6:
                         System.out.println("Logging you out..");
                         exit = true;
                         break;
@@ -80,7 +95,7 @@ public class MenuController {
     }
 
     // Driver Userflow
-    public static void DriverMenu(Driver loggedDriver){
+    public static void DriverMenu(Driver loggedDriver, TripManager tm){
         int menuChoice;
         boolean exit = false;
         while (!exit){
@@ -88,22 +103,33 @@ public class MenuController {
             System.out.println("DRIVER MENU\n");
             System.out.println("1: Get your current trip details.");
             System.out.println("2: Complete trip.");
-            System.out.println("3: Withdraw trip.");
+            System.out.println("3: Cancel trip.");
             System.out.println("4: Switch Availability.");
             System.out.println("5: Logout");
             menuChoice = InputValidation.ValidNumericalInput("Enter a valid choice: ");
             switch (menuChoice) {
                 case 1:
                     System.out.println("Current Trip");
+                    DriverController.DisplayTrip(loggedDriver);
                     break;
                 case 2:
                     System.out.println("Are you sure you want to complete the trip?");
+                    tm.CompleteTrip(loggedDriver);
                     break;
                 case 3:
-                    System.out.println("Are you sure you want to withdraw the trip?");
+                    System.out.println("Are you sure you want to cancel the trip?");
+                    tm.CancelTrip(loggedDriver);
                     break;
                 case 4:
-                    System.out.println("Do you want to change your current availability status?");
+                    System.out.println("Your current availability status is: "+loggedDriver.isAcceptingRider());
+                    if(loggedDriver.getCurrentTrip() == null) {
+                        if (InputValidation.ValidDecisionInput("Do you want to change your current availability status?")) {
+                            loggedDriver.setAcceptingRider(!loggedDriver.isAcceptingRider());
+                            System.out.println("Your current availability status is now : " + loggedDriver.isAcceptingRider());
+                        }
+                    } else {
+                        System.out.println("Can not change current status, since you have an ongoing trip.");
+                    }
                     break;
                 case 5:
                     System.out.println("Logging you out..");

@@ -57,6 +57,8 @@ public class RiderController {
             System.out.println("||"+currTrip.getTripId()+"||"+currTrip.getTripCreationTime()+"||"+currTrip.getOrigin()
             +"||"+ currTrip.getDestination()+"||"+currTrip.getDriver().name+"||"+currTrip.getDriver().getDriverRating()
             +"||"+currTrip.getFare()+"||"+currTrip.getTripStatus()+"||");
+        } else{
+            System.out.println("No ongoing trips.");
         }
     }
 

@@ -7,10 +7,10 @@ public class User {
     private static AtomicLong idCounterD = new AtomicLong(0L); //Total driver objects instantiated.
     private static AtomicLong idCounterR = new AtomicLong(0L); //Total user objects instantiated.
     String user_id;
-    String name;
-    String email;
-    String contact_no;
-    LocalDateTime joinedOn;
+    final String name;
+    final String email;
+    final String contact_no;
+    final LocalDateTime joinedOn;
 
     // Methods
     public User(String name, String email, String contact_no,String type) {
