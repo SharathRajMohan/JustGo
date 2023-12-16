@@ -7,6 +7,15 @@ public class Main {
         // Application Initialization
         RiderManager rm = RiderManager.getInstance();
         DriverManager dm = DriverManager.getInstance();
+        TripManager tm = TripManager.getInstance();
+
+        // Make some dummy riders and drivers for testing.
+        Driver new_driver1 = new Driver("Josh", "josh@test.com", "98673521");
+        dm.registerDriver(new_driver1);
+        Driver new_driver2 = new Driver("Sam", "sam@test.com", "986723951");
+        dm.registerDriver(new_driver2);
+        Rider new_rider1 = new Rider("Nick", "nick@test.com", "9867229411");
+        rm.registerRider(new_rider1);
 
         // Variables
         int menuChoice;
@@ -25,7 +34,7 @@ public class Main {
                     if(Auth.isAuth(true,user_id)){
                         Rider rider = rm.getRiderByUsername(user_id);
                         System.out.println("Hi, "+ rider.name+"!");
-                        MenuController.RiderMenu(rider);
+                        MenuController.RiderMenu(rider,tm);
                     } else {
                         try {
                             throw new RiderNotFound();
@@ -40,7 +49,7 @@ public class Main {
                     if(Auth.isAuth(false,user_id)){
                         Driver driver = dm.getDriverByUsername(user_id);
                         System.out.println("Hi, "+ driver.name+"!\n");
-                        MenuController.DriverMenu(driver);
+                        MenuController.DriverMenu(driver,tm);
                     } else {
                         try {
                             throw new DriverNotFound();

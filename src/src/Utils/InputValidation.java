@@ -39,9 +39,24 @@ public class InputValidation {
                 System.out.println("You seem to have entered an invalid input! Let's try that again.");
                 myScan.nextLine();
             }
-
         }
     }
 
+    // For yes/no user input.
+    public static boolean ValidDecisionInput(String message){
+        while (true) {
+            Scanner myScan = new Scanner(System.in);
+            System.out.println(message);
+            System.out.println("Enter (Y/y) to confirm and any other key to cancel: ");
+            try {
+                String choice = myScan.next();
+                return Objects.equals(choice, "Y") || Objects.equals(choice, "y");
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+                System.out.println("You seem to have entered an invalid input! Let's try that again.");
+                myScan.nextLine();
+            }
+        }
+    }
 
 }

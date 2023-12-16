@@ -2,6 +2,7 @@ import ApplicationExceptions.DriverNotFound;
 import ApplicationExceptions.InvalidTripParamException;
 import ApplicationExceptions.TripNotFoundException;
 import ApplicationExceptions.TripStatusException;
+import Utils.InputValidation;
 
 import java.util.HashMap;
 import java.util.List;
@@ -59,6 +60,7 @@ public class TripManager {
         TripLedger.put(trip.getTripId(),trip);
         assignedDriver.get().setCurrentTrip(trip);
         rider.setCurrentTrip(trip);
+        assignedDriver.get().setAcceptingRider(false);
         System.out.println("Success: A trip has been generated: ");
         System.out.println("Trip ID: "+trip.getTripId());
         System.out.println("Rider : "+trip.getRider().name);
@@ -83,9 +85,11 @@ public class TripManager {
         // load the current trip from ledger.
         Trip trip = currentTrip.get();
         if (trip.getTripStatus().equals(TripStatus.COMPLETED)
-                || trip.getTripStatus().equals(TripStatus.WITHDRAWN)) {
+                || trip.getTripStatus().equals(TripStatus.WITHDRAWN)
+                || trip.getTripStatus().equals(TripStatus.CANCELEDBYRIDER)
+                || trip.getTripStatus().equals(TripStatus.CANCELLEDBYDRIVER)) {
             throw new TripStatusException(
-                    "Trip has already been completed or withdrawn try with valid Trip Id.");
+                    "Trip has already been completed or cancelled try with valid Trip Id.");
         }
 
         // Calculate the updated fare for the trip
@@ -104,5 +108,50 @@ public class TripManager {
     // Get trip history of driver
     public List<Trip> tripHistory(final Driver driver) {
         return this.TripLedger.values().stream().filter(trip -> Objects.equals(trip.getDriver().user_id, driver.user_id)).toList();
+    }
+
+    // Complete the trip.
+    public void CompleteTrip(Driver driver){
+        if(driver.getCurrentTrip() == null){
+            System.out.println("No ongoing trips.");
+        }else{
+            if(InputValidation.ValidDecisionInput("Are you sure you want to end trip "+driver.getCurrentTrip().getTripId())){
+                driver.getCurrentTrip().setTripStatus(TripStatus.COMPLETED);
+                driver.getCurrentTrip().getRider().setCurrentTrip(null);
+                driver.setCurrentTrip(null);
+                driver.setAcceptingRider(true);
+                System.out.println("Trip completed.");
+            }
+        }
+    }
+
+    // Cancel the trip from Driver
+    public void CancelTrip(Driver driver){
+        if(driver.getCurrentTrip() == null){
+            System.out.println("No ongoing trips.");
+        }else{
+            if(InputValidation.ValidDecisionInput("Are you sure you want to cancel trip "+driver.getCurrentTrip().getTripId())){
+                driver.getCurrentTrip().setTripStatus(TripStatus.CANCELLEDBYDRIVER);
+                driver.getCurrentTrip().getRider().setCurrentTrip(null);
+                driver.setCurrentTrip(null);
+                driver.setAcceptingRider(true);
+                System.out.println("Trip cancelled by driver.");
+            }
+        }
+    }
+
+    // Cancel the trip from rider
+    public void CancelTrip(Rider rider){
+        if(rider.getCurrentTrip() == null){
+            System.out.println("No ongoing trips.");
+        }else{
+            if(InputValidation.ValidDecisionInput("Are you sure you want to cancel the trip "+rider.getCurrentTrip().getTripId())){
+                rider.getCurrentTrip().setTripStatus(TripStatus.CANCELEDBYRIDER);
+                rider.getCurrentTrip().getDriver().setCurrentTrip(null);
+                rider.getCurrentTrip().getDriver().setAcceptingRider(true);
+                rider.setCurrentTrip(null);
+                System.out.println("Trip cancelled by rider.");
+            }
+        }
     }
 }
